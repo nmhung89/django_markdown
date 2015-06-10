@@ -1,8 +1,8 @@
 from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.utils import simplejson
 from django.utils.safestring import mark_safe
+import json
 
 
 class MarkdownWidget(forms.Textarea):
@@ -30,7 +30,7 @@ class MarkdownWidget(forms.Textarea):
         editor_settings['previewParserPath'] = reverse('django_markdown_preview')
 
         html += "<script type='text/javascript'>$('#%s').markItUp($.extend(mySettings,%s));</script>" % (
-        attrs['id'], simplejson.dumps(editor_settings))
+        attrs['id'], json.dumps(editor_settings))
         #html += '<script type="text/javascript">miu.init(\'%s\', %s)</script>' % (attrs['id'], simplejson.dumps(editor_settings))
 
         return mark_safe(html)
